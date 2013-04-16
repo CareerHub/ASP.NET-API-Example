@@ -8,18 +8,23 @@ using DotNetOpenAuth.OAuth2;
 using DotNetOpenAuth.Messaging;
 using Web.Code;
 using DotNetOpenAuth.OAuth.ChannelElements;
+using System.Configuration;
 
 namespace Web.Controllers {
 
 	public class HomeController : Controller {
-		private const string BaseUrl = "http://students.careerhub.com.au/";
+		private string BaseUrl {
+			get {
+				return ConfigurationManager.AppSettings["ApiLocation"];
+			}
+		}
 
 		public ActionResult Index() {
 			return Content("Hello World");
 		}
 
 		public ActionResult OAuth(string returnUrl) {
-			var api = new AuthorizationApi(BaseUrl, "api.demo", "abcdefghijklmnop");
+			var api = new AuthorizationApi(BaseUrl, "api.demo.public", "abcdefghijklmnop");
 
 			var scopes = new string[] {
 				"Students.JobSeeker",
