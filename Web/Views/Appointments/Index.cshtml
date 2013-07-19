@@ -1,0 +1,12 @@
+﻿@model IEnumerable<AvailabilityModel>
+@{
+}
+
+@foreach (var appt in Model) {
+    <dl>
+        <dt>@appt.Title</dt>
+        <dd>
+            @appt.Counsellor
+        </dd>
+    </dl>
+}

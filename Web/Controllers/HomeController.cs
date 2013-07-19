@@ -12,15 +12,11 @@ using System.Configuration;
 
 namespace Web.Controllers {
 
-	public class HomeController : Controller {
-		private string BaseUrl {
-			get {
-				return ConfigurationManager.AppSettings["ApiLocation"];
-			}
-		}
-
+	public class HomeController : BaseController {
+		
+		[Authorize]
 		public ActionResult Index() {
-			return Content("Hello World");
+			return View();
 		}
 
 		public ActionResult OAuth(string returnUrl) {
@@ -50,20 +46,7 @@ namespace Web.Controllers {
 				}
 			}
 		}
-
-		[Authorize]
-		public ActionResult Appointments() {
-			var token = Session["token"] as string;
-			if (token == null) {
-				return RedirectToAction("oauth"); // CASE SENSITIVE!!!!
-			}
-
-			var api = new AppointmentsApi(BaseUrl, token);
-			var data = api.GetAppointments();
-
-			return Json(data, JsonRequestBehavior.AllowGet);
-		}
-
+		
 		private static string RemoveQueryStringFromUri(string uri) {
 			int index = uri.IndexOf('?');
 			if (index > -1) {

@@ -11,7 +11,7 @@ namespace Web.Code {
 
 		protected readonly Uri BaseUrl;
 		protected readonly string AccessToken;
-
+		
 		public ApiBase(string baseUrl) : this(baseUrl, null) {}
 
 		public ApiBase(string baseUrl, string accessToken) {

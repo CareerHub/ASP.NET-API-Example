@@ -6,14 +6,14 @@ using System.Web;
 
 namespace Web.Code {
 	public class AppointmentsApi : ApiBase {
-		private const string AppointmentsController = "/api/students/appointments/";
+		private const string URI = "/api/students/appointments/availabilities";
 
 		public AppointmentsApi(string baseUrl, string accessToken) 
 			: base(baseUrl, accessToken) {
 		}
 		
-		public IEnumerable<AppointmentModel> GetAppointments() {
-			var result = this.GetResource<IEnumerable<AppointmentModel>>(AppointmentsController);
+		public IEnumerable<AvailabilityModel> GetAppointments() {
+			var result = this.GetResource<IEnumerable<AvailabilityModel>>(URI);
 			return result;
 		}
 	}
@@ -25,7 +25,7 @@ namespace Web.Code {
 		DropIn = 4
 	}
 
-	public class AppointmentModel {
+	public class AvailabilityModel {
 		
 		public int ID { get; set; }
 
@@ -48,8 +48,5 @@ namespace Web.Code {
 		public DateTime CancellationsLocked { get; set; }
 
 		public TimeSpan Duration { get; set; }
-		public int? JobSeekerID { get; set; }
-		public bool Booked { get; set; }
-
 	}
 }
