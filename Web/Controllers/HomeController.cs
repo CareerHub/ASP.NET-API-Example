@@ -9,6 +9,7 @@ using DotNetOpenAuth.Messaging;
 using Web.Code;
 using DotNetOpenAuth.OAuth.ChannelElements;
 using System.Configuration;
+using System.Threading.Tasks;
 
 namespace Web.Controllers {
 
@@ -19,25 +20,27 @@ namespace Web.Controllers {
 			return View();
 		}
 
-		public ActionResult OAuth(string returnUrl) {
+		public async Task<ActionResult> OAuth(string returnUrl) {
 			var api = new AuthorizationApi(BaseUrl, "api.demo.public", "abcdefghijklmnop");
 
 			var scopes = new string[] {
 				"Students.JobSeeker",
-				"Students.Appointments"
+				"Students.Appointments",
+				"Students.Events"
 			};
 
 			if (string.IsNullOrEmpty(Request.QueryString["code"])) {
 				var callback = Request.Url.AbsoluteUri;
                 callback = RemoveQueryStringFromUri(callback);
 
-				return api.StartOAuth(callback, scopes).AsActionResult();
+				return api.StartOAuth(callback, scopes).AsActionResultMvc5();
 			} else {
-				var result = api.FinishOAuth(Request, scopes);
+				var result = await api.FinishOAuth(Request, scopes);
 				
 				Session["token"] = result.AccessToken;
-				
-				FormsAuthentication.SetAuthCookie(result.User, false);
+
+                // issue with FormsAuth SetAuthCookie in async methods
+                Response.SetCookie(FormsAuthentication.GetAuthCookie(result.User, false));
 
 				if (!String.IsNullOrWhiteSpace(returnUrl)) {
 					return Redirect(returnUrl);

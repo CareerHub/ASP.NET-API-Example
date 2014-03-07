@@ -1,12 +1,15 @@
-﻿@model IEnumerable<AvailabilityModel>
+﻿@model IEnumerable<BookingModel>
 @{
 }
 
-@foreach (var appt in Model) {
-    <dl>
-        <dt>@appt.Title</dt>
-        <dd>
-            @appt.Counsellor
-        </dd>
-    </dl>
-}
+<h1>My Bookings</h1>
+<table>
+    <tbody>
+        @foreach (var appt in Model) {
+            <tr>
+                <td>@appt.Consultant</td>
+                <td>@appt.Start</td>
+            </tr>
+        }
+    </tbody>
+</table>

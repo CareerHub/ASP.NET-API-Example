@@ -5,16 +5,15 @@ using System.Threading.Tasks;
 using System.Web;
 
 namespace Web.Code {
-	public class AppointmentsApi : ApiBase {
-		private const string URI = "/api/students/appointments/availabilities";
+	public class AppointmentBookingsApi : ApiBase {
+		private const string AppointmentsApiBase = "api/students/vAlpha/appointments/bookings";
 
-		public AppointmentsApi(string baseUrl, string accessToken) 
-			: base(baseUrl, accessToken) {
+		public AppointmentBookingsApi(string baseUrl, string accessToken)
+            : base(baseUrl + AppointmentsApiBase, accessToken) {
 		}
-		
-		public IEnumerable<AvailabilityModel> GetAppointments() {
-			var result = this.GetResource<IEnumerable<AvailabilityModel>>(URI);
-			return result;
+
+        public Task<GetResult<IEnumerable<BookingModel>>> GetUpcomingAppointments() {
+			return this.GetResource<IEnumerable<BookingModel>>("upcoming");
 		}
 	}
 
@@ -25,28 +24,20 @@ namespace Web.Code {
 		DropIn = 4
 	}
 
-	public class AvailabilityModel {
-		
-		public int ID { get; set; }
+    public class BookingModel {
+        public int ID { get; set; }
+        public string TypeName { get; set; }
 
-		public string Title { get; set; }
-		public IEnumerable<string> Topics { get; set; }
+        public DateTime StartUtc { get; set; }
+        public DateTime EndUtc { get; set; }
 
-		public AppointmentTypeFormat Format { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
 
-		public string Campus { get; set; }
-		public string Location { get; set; }
-		public string Counsellor { get; set; }
-
-		public DateTime Start { get; set; }
-		public DateTime End { get; set; }
-
-		public bool CanBook { get; set; }
-
-		public DateTime BookingsOpen { get; set; }
-		public DateTime BookingsClose { get; set; }
-		public DateTime CancellationsLocked { get; set; }
-
-		public TimeSpan Duration { get; set; }
-	}
+        public string Consultant { get; set; }
+        public string Location { get; set; }
+        public string Phone { get; set; }
+        public bool? Attended { get; set; }
+        public string Skype { get; set; }
+    }
 }

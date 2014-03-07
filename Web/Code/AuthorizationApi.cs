@@ -45,16 +45,16 @@ namespace Web.Code {
 			return client.PrepareRequestUserAuthorization(state);
 		}
 		
-		public FinishedAuthorizedModel FinishOAuth(HttpRequestBase request, string[] scopes) {
+		public async Task<FinishedAuthorizedModel> FinishOAuth(HttpRequestBase request, string[] scopes) {
 			//Finish processing oauth
 			var client = CreateWebServerClient();
 			var auth = client.ProcessUserAuthorization(request);
 
 			//Validate token is correct
 			var url = "/oauth/tokeninfo?access_token=" + auth.AccessToken + "&scopes=" + String.Join("&scopes=", scopes);
-			var tokenInfo = this.GetResource<TokenInfoModel>(url, accessToken: auth.AccessToken);
-			
-			ValidateToken(tokenInfo, ConsumerKey);
+			var result = await this.GetResource<TokenInfoModel>(url, accessToken: auth.AccessToken);
+
+            var tokenInfo = ValidateToken(result, ConsumerKey);
 
 			return new FinishedAuthorizedModel {
 				 Audience = tokenInfo.Audience,
@@ -68,11 +68,18 @@ namespace Web.Code {
 			return client;
 		}
 
-		private void ValidateToken(TokenInfoModel tokenInfo, string expectedAudience) {
+        private TokenInfoModel ValidateToken(GetResult<TokenInfoModel> result, string expectedAudience) {
+            if (!result.Success) {
+                throw new HttpException("Could not finish authorisation: " + result.Error);
+            }
+
+            var tokenInfo = result.Content;
 
 			if (String.IsNullOrEmpty(tokenInfo.Audience) || tokenInfo.Audience != expectedAudience) {
-				throw new HttpException("tokes with unexpected audience: " + tokenInfo.Audience);
+				throw new HttpException("token with unexpected audience: " + tokenInfo.Audience);
 			}
+
+            return tokenInfo;
 		}
 	}
 

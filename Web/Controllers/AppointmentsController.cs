@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Web.Code;
 
 namespace Web.Controllers {
-	public class AppointmentsController : BaseController {
+	public class AppointmentsController : OAuthController {
 
-		[Authorize]
-		public ActionResult Index() {
-			var token = Session["token"] as string;
-			if (token == null) {
-				return RedirectToAction("oauth", "home"); // CASE SENSITIVE!!!!
-			}
+		public async Task<ActionResult> Index() {
+            var api = new AppointmentBookingsApi(BaseUrl, this.Token);
+			var result = await api.GetUpcomingAppointments();
 
-			var api = new AppointmentsApi(BaseUrl, token);
-			var data = api.GetAppointments();
-			
-			return View(data);
+            if (!result.Success) {
+                return View("Error", result);
+            }
+
+			return View(result.Content);
 		}
 	}
 }

@@ -1,0 +1,17 @@
+﻿@model IEnumerable<EventModel>
+@{
+}
+
+<h1>@ViewBag.Title</h1>
+<table>
+    <tbody>
+        @foreach (var evt in Model) {
+            <tr>
+                <td>
+                    <a href="@Url.Action("detail", new { id = evt.ID })">@evt.Title</a>
+                </td>
+                <td>@evt.Summary</td>
+            </tr>
+        }
+    </tbody>
+</table>

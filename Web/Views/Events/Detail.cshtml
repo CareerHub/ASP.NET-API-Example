@@ -1,0 +1,31 @@
+﻿@model EventModel
+@{
+}
+
+<h1>Event</h1>
+<h2>@Model.Title</h2>
+
+<p>
+    @Model.Details
+</p>
+
+@if (!Model.BookingsEnabled) {
+    <p>
+        Bookings are not enabled for this event
+    </p>
+} else if (Model.IsBooked) {
+    <p>
+        You are booked into the event.
+    </p>
+    using (Html.BeginForm("cancel", "events", new { id = Model.ID })) { 
+        <button type="submit">Cancel Booking</button>
+    }
+} else if (Model.BookingSettings.CanBook()) {
+    using (Html.BeginForm("book", "events", new { id = Model.ID })) { 
+        <button type="submit">Book</button>
+    }
+} else {
+    <p>
+        You cannot book into this event
+    </p>
+}
