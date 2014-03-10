@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Web.Code {
 	public class AppointmentBookingsApi : ApiBase {
-		private const string AppointmentsApiBase = "api/students/vAlpha/appointments/bookings";
+		private const string AppointmentsApiBase = "api/students/alpha/appointments/bookings";
 
 		public AppointmentBookingsApi(string baseUrl, string accessToken)
             : base(baseUrl + AppointmentsApiBase, accessToken) {

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Web.Code {
 	public class EventsApi : ApiBase {
-        private const string EventsApiBase = "api/students/vAlpha/events";
+        private const string EventsApiBase = "api/students/alpha/events";
 
 		public EventsApi(string baseUrl, string accessToken)
             : base(baseUrl + EventsApiBase, accessToken) {
