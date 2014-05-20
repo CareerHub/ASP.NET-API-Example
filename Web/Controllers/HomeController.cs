@@ -1,15 +1,16 @@
-﻿using System;
+﻿using CareerHub.Client.API;
+using CareerHub.Client.API.Authorization;
+using CareerHub.Client.API.Students;
+using DotNetOpenAuth.Messaging;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using DotNetOpenAuth.OAuth2;
-using DotNetOpenAuth.Messaging;
-using Web.Code;
-using DotNetOpenAuth.OAuth.ChannelElements;
-using System.Configuration;
-using System.Threading.Tasks;
+using Web.Models;
 
 namespace Web.Controllers {
 
@@ -20,13 +21,13 @@ namespace Web.Controllers {
 			return View();
 		}
 
-		public async Task<ActionResult> OAuth(string returnUrl) {
-			var api = new AuthorizationApi(BaseUrl, "api.demo.public", "abcdefghijklmnop");
+        public async Task<ActionResult> OAuth(string returnUrl) {
+            string baseUrl = CareerHubApiInfo.BaseUrl;
+            var api = new AuthorizationApi(baseUrl, "api.demo.public", "abcdefghijklmnop");
 
 			var scopes = new string[] {
-				"Students.JobSeeker",
-				"Students.Appointments",
-				"Students.Events"
+				"JobSeeker.Appointments",
+				"JobSeeker.Events"
 			};
 
 			if (string.IsNullOrEmpty(Request.QueryString["code"])) {

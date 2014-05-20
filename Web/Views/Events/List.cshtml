@@ -1,8 +1,10 @@
-﻿@model IEnumerable<EventModel>
+﻿@using CareerHub.Client.API.Students.Events
+@model IEnumerable<EventModel>
 @{
 }
 
 <h1>@ViewBag.Title</h1>
+@if (Model.Any()) { 
 <table>
     <tbody>
         @foreach (var evt in Model) {
@@ -15,3 +17,6 @@
         }
     </tbody>
 </table>
+} else {
+    <p>No upcoming events</p>
+}

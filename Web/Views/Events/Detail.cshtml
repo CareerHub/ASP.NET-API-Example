@@ -1,4 +1,5 @@
-﻿@model EventModel
+﻿@using CareerHub.Client.API.Students.Events
+@model EventModel
 @{
 }
 
@@ -20,7 +21,7 @@
     using (Html.BeginForm("cancel", "events", new { id = Model.ID })) { 
         <button type="submit">Cancel Booking</button>
     }
-} else if (Model.BookingSettings.CanBook()) {
+} else if (Model.BookingSettings.CanBook) {
     using (Html.BeginForm("book", "events", new { id = Model.ID })) { 
         <button type="submit">Book</button>
     }
