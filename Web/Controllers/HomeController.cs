@@ -27,7 +27,8 @@ namespace Web.Controllers {
 
 			var scopes = new string[] {
 				"JobSeeker.Appointments",
-				"JobSeeker.Events"
+				"JobSeeker.Events",
+                "JobSeeker.Profile"
 			};
 
 			if (string.IsNullOrEmpty(Request.QueryString["code"])) {

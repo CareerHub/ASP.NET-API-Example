@@ -12,58 +12,36 @@ using Web.Models;
 namespace Web.Controllers {
 	public class EventsController : OAuthController {
          
-
-
 		public async Task<ActionResult> Index() {
             var factory = await GetFactory();
             var api = factory.GetEventsApi();
+            var model = await api.GetEvents();
 
-            var result = await api.GetEvents();
-
-            if (!result.Success) {
-                return View("Error", result);
-            }
-
-            return View("List", result.Content);
+            return View("List", model);
 		}
 
         public async Task<ActionResult> Search(string text) {
             var factory = await GetFactory();
             var api = factory.GetEventsApi();
+            var model = await api.SearchEvents(text);
 
-            var result = await api.SearchEvents(text);
-
-            if (!result.Success) {
-                return View("Error", result);
-            }
-
-            return View("List", result.Content);
+            return View("List", model);
         }
 
         public async Task<ActionResult> Detail(int id) {
             var factory = await GetFactory();
             var api = factory.GetEventsApi();
+            var model = await api.GetEvent(id);
 
-            var result = await api.GetEvent(id);
-
-            if (!result.Success) {
-                return View("Error", result);
-            }
-
-            return View(result.Content);
+            return View(model);
         }
 
         public async Task<ActionResult> Bookings() {
             var factory = await GetFactory();
             var api = factory.GetEventBookingsApi();
+            var model = await api.GetUpcomingEvents();
 
-            var result = await api.GetUpcomingEvents();
-
-            if (!result.Success) {
-                return View("Error", result);
-            }
-
-            return View("List", result.Content);
+            return View("List", model);
         }
 
         [HttpPost]
@@ -71,11 +49,7 @@ namespace Web.Controllers {
             var factory = await GetFactory();
             var api = factory.GetEventBookingsApi();
 
-            var result = await api.BookEvent(id);
-
-            if (!result.Success) {
-                return View("Error", result);
-            }
+            var model = await api.BookEvent(id);
 
             return RedirectToAction("bookings");
         }
@@ -85,11 +59,7 @@ namespace Web.Controllers {
             var factory = await GetFactory();
             var api = factory.GetEventBookingsApi();
 
-            var result = await api.CancelBooking(id);
-
-            if (!result.Success) {
-                return View("Error", result);
-            }
+            await api.CancelBooking(id);
 
             return RedirectToAction("bookings");
         }

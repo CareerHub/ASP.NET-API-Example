@@ -7,7 +7,7 @@
 <h2>@Model.Title</h2>
 
 <p>
-    @Model.Details
+    @Html.Raw(Model.Details)
 </p>
 
 @if (!Model.BookingsEnabled) {

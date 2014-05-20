@@ -9,15 +9,15 @@ using System.Web.Mvc;
 using Web.Models;
 
 namespace Web.Controllers {
-	public class AppointmentsController : OAuthController {
+    public class ExperiencesController : OAuthController {
 
 		public async Task<ActionResult> Index() {
             var info = await CareerHubApiInfo.GetStudentsInfo();
             var factory = new StudentsApiFactory(info, this.Token);
 
-            var api = factory.GetAppointmentBookingsApi();
-			var model = await api.GetUpcomingAppointments();
-
+            var api = factory.GetExperiencesApi();
+			var model = await api.GetExperiences();
+            
             return View(model);
 		}
 	}
