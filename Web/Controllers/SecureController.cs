@@ -42,10 +42,8 @@ namespace Web.Controllers {
 
             return RedirectToAction("index", "home");
         }
-
-
-        public async Task<ActionResult> OAuth(string returnUrl) {		
-
+        
+        public async Task<ActionResult> OAuth(string returnUrl) {
 			if (string.IsNullOrEmpty(Request.QueryString["code"])) {
 				var callback = Request.Url.AbsoluteUri;
                 callback = RemoveQueryStringFromUri(callback);
