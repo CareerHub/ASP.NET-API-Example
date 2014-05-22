@@ -23,10 +23,18 @@ namespace Web {
                 if (err.Status == HttpStatusCode.Forbidden) {
                     filterContext.ExceptionHandled = true;
                     filterContext.HttpContext.Response.Cookies.Remove(FormsAuthentication.FormsCookieName);
+                    filterContext.HttpContext.Session.Remove("token");
                     filterContext.Result = new RedirectResult("~/");
                     return;
                 }
 
+                if (err.Status == HttpStatusCode.NotFound) {
+                    filterContext.ExceptionHandled = true;
+                    filterContext.Result = new ViewResult() {
+                        ViewName = "NotFound"
+                    };
+                    return;
+                }
             }
         }
     }

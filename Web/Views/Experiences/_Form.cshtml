@@ -1,0 +1,51 @@
+﻿@model ExperienceSubmission
+@{
+}
+
+<div>
+    @Html.LabelFor(m => m.Title)
+    @Html.TextBoxFor(m => m.Title)
+    @Html.ValidationMessageFor(m => m.Title)
+</div>
+<div>
+    @Html.LabelFor(m => m.Organisation)
+    @Html.TextBoxFor(m => m.Organisation)
+    @Html.ValidationMessageFor(m => m.Organisation)
+</div>
+<div>
+    @Html.LabelFor(m => m.Description)
+    @Html.TextAreaFor(m => m.Description)
+    @Html.ValidationMessageFor(m => m.Description)
+</div>
+
+
+<div>
+    @Html.LabelFor(m => m.StartDate)
+    <input name="@Html.NameFor(m => m.StartDate)" type="date" value="@Model.StartDate.ToString("yyyy-MM-dd")" />
+    @Html.ValidationMessageFor(m => m.StartDate)
+</div>
+<div>
+    @Html.LabelFor(m => m.EndDate)
+    <input name="@Html.NameFor(m => m.EndDate)" type="date" value="@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString("yyyy-MM-dd") : "")" />
+    @Html.ValidationMessageFor(m => m.EndDate)
+</div>
+
+
+<div>
+    @Html.LabelFor(m => m.ContactName)
+    @Html.TextBoxFor(m => m.ContactName)
+    @Html.ValidationMessageFor(m => m.ContactName)
+</div>
+<div>
+    @Html.LabelFor(m => m.ContactEmail)
+    @Html.TextBoxFor(m => m.ContactEmail)
+    @Html.ValidationMessageFor(m => m.ContactEmail)
+</div>
+<div>
+    @Html.LabelFor(m => m.ContactPhone)
+    @Html.TextBoxFor(m => m.ContactPhone)
+    @Html.ValidationMessageFor(m => m.ContactPhone)
+</div>
+<div>
+    <button type="submit">Save</button>
+</div>
