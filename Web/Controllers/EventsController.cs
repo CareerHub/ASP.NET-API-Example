@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using Web.Models;
 
 namespace Web.Controllers {
-	public class EventsController : OAuthController {
+	public class EventsController : OAuthSecuredController {
          
 		public async Task<ActionResult> Index() {
             var factory = await GetFactory();
@@ -66,7 +66,7 @@ namespace Web.Controllers {
 
         private async Task<StudentsApiFactory> GetFactory() {
             var info = await CareerHubApiInfo.GetStudentsInfo();
-            var factory = new StudentsApiFactory(info, this.Token);
+            var factory = new StudentsApiFactory(info, this.AccessToken);
 
             return factory;
         }

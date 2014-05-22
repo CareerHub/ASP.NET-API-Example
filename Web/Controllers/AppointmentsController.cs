@@ -9,11 +9,11 @@ using System.Web.Mvc;
 using Web.Models;
 
 namespace Web.Controllers {
-	public class AppointmentsController : OAuthController {
+	public class AppointmentsController : OAuthSecuredController {
 
 		public async Task<ActionResult> Index() {
             var info = await CareerHubApiInfo.GetStudentsInfo();
-            var factory = new StudentsApiFactory(info, this.Token);
+            var factory = new StudentsApiFactory(info, this.AccessToken);
 
             var api = factory.GetAppointmentBookingsApi();
 			var model = await api.GetUpcomingAppointments();

@@ -9,11 +9,11 @@ using System.Web.Mvc;
 using Web.Models;
 
 namespace Web.Controllers {
-    public class ExperiencesController : OAuthController {
+    public class ExperiencesController : OAuthSecuredController {
 
 		public async Task<ActionResult> Index() {
             var info = await CareerHubApiInfo.GetStudentsInfo();
-            var factory = new StudentsApiFactory(info, this.Token);
+            var factory = new StudentsApiFactory(info, this.AccessToken);
 
             var api = factory.GetExperiencesApi();
 			var model = await api.GetExperiences();
@@ -23,7 +23,7 @@ namespace Web.Controllers {
 
         public async Task<ActionResult> Detail(int id) {
             var info = await CareerHubApiInfo.GetStudentsInfo();
-            var factory = new StudentsApiFactory(info, this.Token);
+            var factory = new StudentsApiFactory(info, this.AccessToken);
 
             var api = factory.GetExperiencesApi();
             var model = await api.GetExperience(id);
@@ -33,7 +33,7 @@ namespace Web.Controllers {
 
         public async Task<ActionResult> Edit(int id) {
             var info = await CareerHubApiInfo.GetStudentsInfo();
-            var factory = new StudentsApiFactory(info, this.Token);
+            var factory = new StudentsApiFactory(info, this.AccessToken);
 
             var api = factory.GetExperiencesApi();
             var experience = await api.GetExperience(id);
@@ -58,7 +58,7 @@ namespace Web.Controllers {
         [HttpPost]
         public async Task<ActionResult> Edit(int id, ExperienceSubmission submission) {
             var info = await CareerHubApiInfo.GetStudentsInfo();
-            var factory = new StudentsApiFactory(info, this.Token);
+            var factory = new StudentsApiFactory(info, this.AccessToken);
 
             var api = factory.GetExperiencesApi();
             var model = await api.UpdateExperience(id, submission);
@@ -70,7 +70,7 @@ namespace Web.Controllers {
         [HttpPost]
         public async Task<ActionResult> Add(ExperienceSubmission submission) {
             var info = await CareerHubApiInfo.GetStudentsInfo();
-            var factory = new StudentsApiFactory(info, this.Token);
+            var factory = new StudentsApiFactory(info, this.AccessToken);
 
             var api = factory.GetExperiencesApi();
             var model = await api.CreateExperience(submission);
