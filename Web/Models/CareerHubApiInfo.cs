@@ -12,11 +12,20 @@ namespace Web.Models {
         public static string BaseUrl {
             get { return ConfigurationManager.AppSettings["ApiLocation"]; }
         }
-        
+
+        private static AsyncLazy<APIInfo> publicInfo = new AsyncLazy<APIInfo>(() => {
+            string baseUrl = CareerHubApiInfo.BaseUrl;
+            return APIInfo.GetFromRemote(baseUrl, ApiArea.Public);
+        });
+
         private static AsyncLazy<APIInfo> studentsInfo = new AsyncLazy<APIInfo>(() => {
             string baseUrl = CareerHubApiInfo.BaseUrl;
             return APIInfo.GetFromRemote(baseUrl, ApiArea.Students);
         });
+
+        public static async Task<APIInfo> GetPublicInfo() {
+            return await publicInfo;
+        }
 
         public static async Task<APIInfo> GetStudentsInfo() {
             return await studentsInfo;

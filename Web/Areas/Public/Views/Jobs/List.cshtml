@@ -1,0 +1,30 @@
+﻿@using CareerHub.Client.API.Public.Jobs
+@model IEnumerable<JobModel>
+@{
+}
+
+<h1>@ViewBag.Title</h1>
+
+@using (Html.BeginForm("search", "jobs", FormMethod.Get)) {
+    <input type="text" name="text" />
+    <button type="submit">Search Jobs</button>
+}
+
+@if (Model.Any()) { 
+<table>
+    <tbody>
+        @foreach (var evt in Model) {
+            <tr>
+                <td>
+                    <a href="@Url.Action("detail", new { id = evt.ID })">@evt.Title</a>
+                </td>
+                <td>@evt.EmployerName</td>
+                <td>@evt.City</td>
+                <td>@evt.State</td>
+            </tr>
+        }
+    </tbody>
+</table>
+} else {
+    <p>No upcoming events</p>
+}

@@ -23,7 +23,8 @@ namespace Web {
                 if (err.Status == HttpStatusCode.Forbidden) {
                     filterContext.ExceptionHandled = true;
                     filterContext.HttpContext.Response.Cookies.Remove(FormsAuthentication.FormsCookieName);
-                    filterContext.HttpContext.Session.Remove("token");
+                    filterContext.HttpContext.Session.Remove("accesstoken");
+                    filterContext.HttpContext.Session.Remove("refreshtoken");
                     filterContext.Result = new RedirectResult("~/");
                     return;
                 }

@@ -1,0 +1,28 @@
+﻿@using CareerHub.Client.API.Students.Events
+@model IEnumerable<EventModel>
+@{
+}
+
+<h1>@ViewBag.Title</h1>
+
+@using (Html.BeginForm("search", "events", FormMethod.Get)) {
+    <input type="text" name="text" />
+    <button type="submit">Search Events</button>
+}
+
+@if (Model.Any()) { 
+<table>
+    <tbody>
+        @foreach (var evt in Model) {
+            <tr>
+                <td>
+                    <a href="@Url.Action("detail", new { id = evt.ID })">@evt.Title</a>
+                </td>
+                <td>@evt.Summary</td>
+            </tr>
+        }
+    </tbody>
+</table>
+} else {
+    <p>No upcoming events</p>
+}

@@ -1,0 +1,9 @@
+﻿@model ExperienceSubmission
+@{
+}
+
+<h1>Edit @Model.Title</h1>
+
+@using (Html.BeginForm()) {
+    @Html.Partial("_Form", Model)
+}

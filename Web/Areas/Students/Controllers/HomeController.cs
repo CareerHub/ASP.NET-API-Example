@@ -12,9 +12,9 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Web.Models;
 
-namespace Web.Controllers {
+namespace Web.Areas.Students.Controllers {
 
-    public class HomeController : BaseController {
+    public class HomeController : OAuthSecuredController {
 		
 		public ActionResult Index() {
 			return View();

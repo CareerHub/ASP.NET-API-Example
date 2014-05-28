@@ -1,0 +1,38 @@
+﻿@using CareerHub.Client.API.Students.Experiences
+@model IEnumerable<ExperienceModel>
+@{
+}
+
+<h1>My Experiences</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <td>Start</td>
+            <td>End</td>
+            <td>Organisation</td>
+            <td>Contact Name</td>
+            <td>Contact Email</td>
+            <td>Contact Phone</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var experience in Model) {
+            <tr>
+                <td>
+                    <a href="@Url.Action("detail", new { id = experience.ID })">@experience.Title</a>
+                </td>
+                <td>@experience.Start</td>
+                <td>@experience.End</td>
+
+                <td>@experience.Organisation</td>
+                <td>@experience.ContactName</td>
+                <td>@experience.ContactEmail</td>
+                <td>@experience.ContactPhone</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p>
+    <a href="@Url.Action("add")">Add Experience</a>
+</p>

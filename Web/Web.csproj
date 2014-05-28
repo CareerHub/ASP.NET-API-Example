@@ -46,7 +46,7 @@
   <ItemGroup>
     <Reference Include="CareerHub.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CareerHub.Client.API.1.0.38-master\lib\CareerHub.Client.dll</HintPath>
+      <HintPath>..\packages\CareerHub.Client.API.1.0.40-master\lib\CareerHub.Client.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -146,20 +146,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Public\Controllers\JobsController.cs" />
+    <Compile Include="Areas\Public\Controllers\EventsController.cs" />
+    <Compile Include="Areas\Public\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Public\Controllers\OAuthSecuredController.cs" />
+    <Compile Include="Areas\Public\PublicAreaRegistration.cs" />
+    <Compile Include="Areas\Students\Controllers\JobsController.cs" />
+    <Compile Include="Areas\Students\StudentsAreaRegistration.cs" />
     <Compile Include="AsyncLazy.cs" />
-    <Compile Include="Controllers\ExperiencesController.cs" />
-    <Compile Include="Controllers\AppointmentsController.cs" />
+    <Compile Include="Areas\Students\Controllers\ExperiencesController.cs" />
+    <Compile Include="Areas\Students\Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Areas\Students\Controllers\EventsController.cs" />
     <Compile Include="Controllers\SecureController.cs" />
+    <Compile Include="Areas\Students\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Students\Controllers\OAuthSecuredController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OAuthSecuredController.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HandleErrorAttribute.cs" />
     <Compile Include="Models\CareerHubApiInfo.cs" />
-    <Compile Include="Models\ExperienceSubmissions.cs" />
+    <Compile Include="Areas\Students\Models\ExperienceSubmissions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +189,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Public\Models\" />
+    <Folder Include="Areas\Public\Views\Shared\" />
+    <Folder Include="Areas\Students\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -191,34 +203,73 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Appointments\Index.cshtml" />
+    <Content Include="Areas\Students\Views\Appointments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Events\List.cshtml" />
+    <Content Include="Areas\Students\Views\Events\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Areas\Students\Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Events\Detail.cshtml" />
+    <Content Include="Areas\Students\Views\Events\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Experiences\Index.cshtml" />
+    <Content Include="Areas\Students\Views\Experiences\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Experiences\_Form.cshtml" />
+    <Content Include="Areas\Students\Views\Experiences\_Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Experiences\Add.cshtml" />
+    <Content Include="Areas\Students\Views\Experiences\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Experiences\Edit.cshtml" />
+    <Content Include="Areas\Students\Views\Experiences\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Experiences\Detail.cshtml" />
+    <Content Include="Areas\Students\Views\Experiences\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Students\Views\web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Public\Views\web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Students\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Public\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\NotFound.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Public\Views\Events\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Public\Views\Events\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Public\Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Public\Views\Jobs\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Public\Views\Jobs\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Students\Views\Jobs\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Students\Views\Jobs\List.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
