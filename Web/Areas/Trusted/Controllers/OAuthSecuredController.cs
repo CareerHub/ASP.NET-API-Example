@@ -1,4 +1,4 @@
-﻿using CareerHub.Client.API.Public;
+﻿using CareerHub.Client.API.Trusted;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Web.Routing;
 using Web.Controllers;
 using Web.Models;
 
-namespace Web.Areas.Public.Controllers {
+namespace Web.Areas.Trusted.Controllers {
 
     public class OAuthSecuredController : BaseController {
 
@@ -26,7 +26,7 @@ namespace Web.Areas.Public.Controllers {
             if (String.IsNullOrWhiteSpace(this.AccessToken)) {
                 var routeValues = new RouteValueDictionary();
                 routeValues.Add("controller", "secure");
-                routeValues.Add("action", "publicoauth");
+                routeValues.Add("action", "trustedoauth");
                 routeValues.Add("returnUrl", this.Request.Url.PathAndQuery);
 
                 filterContext.Result = new RedirectToRouteResult("Default", routeValues);
@@ -35,10 +35,10 @@ namespace Web.Areas.Public.Controllers {
 
             base.OnAuthorization(filterContext);
         }
-        
-        protected async Task<PublicApiFactory> GetFactory() {
+
+        protected async Task<TrustedApiFactory> GetFactory() {
             var info = await CareerHubApiInfo.GetStudentsInfo();
-            var factory = new PublicApiFactory(info, this.AccessToken);
+            var factory = new TrustedApiFactory(info, this.AccessToken);
 
             return factory;
         }

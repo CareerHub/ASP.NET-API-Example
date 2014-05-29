@@ -47,6 +47,15 @@ namespace Web.Areas.Students.Controllers {
             return RedirectToReturnUrl(returnUrl);
         }
 
+        public ActionResult TrustedOAuth(string returnUrl) {
+            var scopes = GetTrustedScopes();
+            var result = api.GetApiClientAccessToken(scopes);
+
+            StoreTokens(result);
+
+            return RedirectToReturnUrl(returnUrl);
+        }
+
         public ActionResult StudentsOAuth(string returnUrl) {
             var scopes = GetStudentScopes();
 
@@ -93,14 +102,20 @@ namespace Web.Areas.Students.Controllers {
         private static string[] GetStudentScopes() {
             return new string[] {
 				"JobSeeker.Appointments",
-				"JobSeeker.Appointments",
 				"JobSeeker.Events",
+				"JobSeeker.Experiences",
 				"JobSeeker.Jobs",
 				"JobSeeker.News",
                 "JobSeeker.Profile",
 				"JobSeeker.Questions",
 				"JobSeeker.Resources"
 			};;
+        }
+
+        private static string[] GetTrustedScopes() {
+            return new string[] {
+				"Trusted.Experiences"
+			};
         }
 
 		private static string RemoveQueryStringFromUri(string uri) {

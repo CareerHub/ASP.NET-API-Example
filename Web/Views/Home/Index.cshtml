@@ -2,9 +2,12 @@
 <h1>APIs</h1>
 <ul>
     <li>
-        <a href="@Url.Action("index", "public")">Public</a>
+        <a href="@Url.Action("index", "home", new { area = "public" })">Public</a>
     </li>
     <li>
-        <a href="@Url.Action("index", "students")">Students</a>
+        <a href="@Url.Action("index", "home", new { area = "students" })">Students</a>
+    </li>
+    <li>
+        <a href="@Url.Action("index", "home", new { area = "trusted" })">Trusted</a>
     </li>
 </ul>

@@ -1,40 +1,51 @@
 ﻿using CareerHub.Client.API;
-using CareerHub.Client.API.Students;
+using CareerHub.Client.API.Trusted;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Web.Areas.Students.Models;
+using Web.Areas.Trusted.Models;
 using Web.Models;
 
-namespace Web.Areas.Students.Controllers {
+namespace Web.Areas.Trusted.Controllers {
     public class ExperiencesController : OAuthSecuredController {
 
-        public async Task<ActionResult> Index() {
+        public ActionResult Index() {
+            return View();
+        }
+
+        public async Task<ActionResult> List(string studentid) {
+            ViewBag.StudentID = studentid;
+
             var factory = await GetFactory();
 
             var api = factory.GetExperiencesApi();
-			var model = await api.GetExperiences();
+			var model = await api.GetExperiences(studentid);
             
             return View(model);
 		}
 
-        public async Task<ActionResult> Detail(int id) {
+        public async Task<ActionResult> Detail(string studentid, int id) {
+            ViewBag.StudentID = studentid;
+
             var factory = await GetFactory();
 
             var api = factory.GetExperiencesApi();
-            var model = await api.GetExperience(id);
+            var model = await api.GetExperience(studentid, id);
             
             return View(model);
         }
 
-        public async Task<ActionResult> Edit(int id) {
+        public async Task<ActionResult> Edit(string studentid, int id) {
+            ViewBag.StudentID = studentid;
+
             var factory = await GetFactory();
 
             var api = factory.GetExperiencesApi();
-            var experience = await api.GetExperience(id);
+            var experience = await api.GetExperience(studentid, id);
+
             var model = new ExperienceSubmission {
                 Title = experience.Title,
                 Organisation = experience.Organisation,
@@ -49,29 +60,35 @@ namespace Web.Areas.Students.Controllers {
             return View(model);
         }
 
-        public ActionResult Add() {
+        public ActionResult Add(string studentid) {
+            ViewBag.StudentID = studentid;
+
             return View(new ExperienceSubmission());
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(int id, ExperienceSubmission submission) {
+        public async Task<ActionResult> Edit(string studentid, int id, ExperienceSubmission submission) {
+            ViewBag.StudentID = studentid;
+
             var factory = await GetFactory();
 
             var api = factory.GetExperiencesApi();
-            var model = await api.UpdateExperience(id, submission);
+            var model = await api.UpdateExperience(studentid, id, submission);
 
-            return RedirectToAction("detail", new { id = model.ID });
+            return RedirectToAction("detail", new { id = model.ID, studentid = studentid });
         }
 
 
         [HttpPost]
-        public async Task<ActionResult> Add(ExperienceSubmission submission) {
+        public async Task<ActionResult> Add(string studentid, ExperienceSubmission submission) {
+            ViewBag.StudentID = studentid;
+
             var factory = await GetFactory();
 
             var api = factory.GetExperiencesApi();
-            var model = await api.CreateExperience(submission);
+            var model = await api.CreateExperience(studentid, submission);
 
-            return RedirectToAction("detail", new { id = model.ID });
+            return RedirectToAction("detail", new { id = model.ID, studentid = studentid });
         }
 	}
 }

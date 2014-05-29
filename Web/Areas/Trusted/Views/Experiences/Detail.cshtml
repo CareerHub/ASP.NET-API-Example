@@ -1,0 +1,22 @@
+﻿@using CareerHub.Client.API.Trusted.Experiences
+@model ExperienceModel
+@{
+    string studentId = ViewBag.StudentID as string;
+}
+
+<h1>@Model.Title</h1>
+
+@if (!String.IsNullOrWhiteSpace(Model.Organisation)) {
+    <h3>@Model.Organisation</h3>
+}
+
+<p>
+    @Model.Description
+</p>
+<p>
+    <strong>@Model.ContactName: </strong>
+    <span style="display: block">Phone: @Model.ContactPhone</span>
+    <span style="display: block">Email: @Model.ContactEmail</span>
+</p>
+
+<a href="@Url.Action("edit", new { studentid = studentId, id = Model.ID })">Edit Experience</a>

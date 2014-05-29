@@ -27,6 +27,7 @@ namespace Web.Areas.Students.Controllers {
                 var routeValues = new RouteValueDictionary();
                 routeValues.Add("controller", "secure");
                 routeValues.Add("action", "studentsoauth");
+                routeValues.Add("returnUrl", this.Request.Url.PathAndQuery);
 
                 filterContext.Result = new RedirectToRouteResult("Default", routeValues);
                 return;

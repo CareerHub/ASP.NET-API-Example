@@ -1,0 +1,8 @@
+﻿@model ExperienceSubmission
+@{
+    string studentId = ViewBag.StudentID as string;
+}
+
+@using (Html.BeginForm(new { studentid = studentId })) {
+    @Html.Partial("_Form", Model)
+}

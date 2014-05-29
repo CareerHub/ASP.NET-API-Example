@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Experiences";
+}
+
+
+@using (Html.BeginForm("list", "experiences", FormMethod.Get)) {
+    <input type="text" name="studentid" />
+    <button type="submit">Get For Student</button>
+}
+
+
