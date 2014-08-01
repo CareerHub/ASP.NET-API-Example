@@ -1,11 +1,11 @@
-﻿using CareerHub.Client.API.Trusted.Experiences;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Web.Areas.Trusted.Models {
-    public class ExperienceSubmission : IExperienceSubmissionModel {
+    public class ExperienceViewModel {
 
         public string Title { get; set; }
         public string Organisation { get; set; }
@@ -18,7 +18,7 @@ namespace Web.Areas.Trusted.Models {
         public string ContactEmail { get; set; }
         public string ContactPhone { get; set; }
 
-        public int TypeID { get; set; }
-        public int? HoursID { get; set; }
+        public int? TypeID { get; set; }
+        public IEnumerable<SelectListItem> Types { get; set; }
     }
 }

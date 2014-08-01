@@ -1,6 +1,12 @@
-﻿@model ExperienceSubmission
+﻿@model ExperienceViewModel
 @{
 }
+
+<div>
+    @Html.LabelFor(m => m.TypeID)
+    @Html.DropDownListFor(m => m.TypeID, Model.Types, "")
+    @Html.ValidationMessageFor(m => m.TypeID)
+</div>
 
 <div>
     @Html.LabelFor(m => m.Title)
@@ -20,14 +26,14 @@
 
 
 <div>
-    @Html.LabelFor(m => m.StartDate)
-    <input name="@Html.NameFor(m => m.StartDate)" type="date" value="@Model.StartDate.ToString("yyyy-MM-dd")" />
-    @Html.ValidationMessageFor(m => m.StartDate)
+    @Html.LabelFor(m => m.Start)
+    <input name="@Html.NameFor(m => m.Start)" type="date" value="@Model.Start.ToString("yyyy-MM-dd")" />
+    @Html.ValidationMessageFor(m => m.Start)
 </div>
 <div>
-    @Html.LabelFor(m => m.EndDate)
-    <input name="@Html.NameFor(m => m.EndDate)" type="date" value="@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString("yyyy-MM-dd") : "")" />
-    @Html.ValidationMessageFor(m => m.EndDate)
+    @Html.LabelFor(m => m.End)
+    <input name="@Html.NameFor(m => m.End)" type="date" value="@(Model.End.HasValue ? Model.End.Value.ToString("yyyy-MM-dd") : "")" />
+    @Html.ValidationMessageFor(m => m.End)
 </div>
 
 

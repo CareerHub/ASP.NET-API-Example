@@ -43,27 +43,48 @@ namespace Web.Areas.Trusted.Controllers {
 
             var factory = await GetFactory();
 
+            var typesApi = factory.GetExperienceTypesApi();
             var api = factory.GetExperiencesApi();
+
+            var types = await typesApi.GetExperienceTypes();
             var experience = await api.GetExperience(studentid, id);
 
-            var model = new ExperienceSubmission {
+            var model = new ExperienceViewModel {
                 Title = experience.Title,
                 Organisation = experience.Organisation,
                 Description = experience.Description,
-                StartDate = experience.Start,
-                EndDate = experience.End,
+                Start = experience.Start,
+                End = experience.End,
                 ContactName = experience.ContactName,
                 ContactEmail = experience.ContactEmail,
-                ContactPhone = experience.ContactPhone
+                ContactPhone = experience.ContactPhone,
+
+                TypeID = experience.TypeID,
+                Types = types.Select(t => new SelectListItem {
+                    Text = t.Name,
+                    Value = t.ID.ToString(),
+                    Selected = t.ID == experience.TypeID
+                })
             };
 
             return View(model);
         }
 
-        public ActionResult Add(string studentid) {
+        public async Task<ActionResult> Add(string studentid) {
             ViewBag.StudentID = studentid;
 
-            return View(new ExperienceSubmission());
+            var factory = await GetFactory();
+            var api = factory.GetExperienceTypesApi();
+            var types = await api.GetExperienceTypes();
+
+            var model = new ExperienceViewModel {                
+                Types = types.Select(t => new SelectListItem {
+                    Text = t.Name,
+                    Value = t.ID.ToString()
+                })
+            };
+
+            return View(model);
         }
 
         [HttpPost]

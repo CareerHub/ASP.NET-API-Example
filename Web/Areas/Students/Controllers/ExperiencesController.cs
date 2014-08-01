@@ -33,24 +33,44 @@ namespace Web.Areas.Students.Controllers {
         public async Task<ActionResult> Edit(int id) {
             var factory = await GetFactory();
 
+            var typesApi = factory.GetExperienceTypesApi();
             var api = factory.GetExperiencesApi();
+
+            var types = await typesApi.GetExperienceTypes();
             var experience = await api.GetExperience(id);
-            var model = new ExperienceSubmission {
+
+            var model = new ExperienceViewModel {
                 Title = experience.Title,
                 Organisation = experience.Organisation,
                 Description = experience.Description,
-                StartDate = experience.Start,
-                EndDate = experience.End,
+                Start = experience.Start,
+                End = experience.End,
                 ContactName = experience.ContactName,
                 ContactEmail = experience.ContactEmail,
-                ContactPhone = experience.ContactPhone
+                ContactPhone = experience.ContactPhone,
+                //TypeID = experience.TypeID,
+                Types = types.Select(t => new SelectListItem {
+                    Text = t.Name,
+                    Value = t.ID.ToString()
+                })
             };
 
             return View(model);
         }
 
-        public ActionResult Add() {
-            return View(new ExperienceSubmission());
+        public async Task<ActionResult> Add() {
+            var factory = await GetFactory();
+            var api = factory.GetExperienceTypesApi();
+            var types = await api.GetExperienceTypes();
+
+            var model = new ExperienceViewModel() {
+                Types = types.Select(t => new SelectListItem {
+                    Text = t.Name,
+                    Value = t.ID.ToString()
+                })
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -62,7 +82,6 @@ namespace Web.Areas.Students.Controllers {
 
             return RedirectToAction("detail", new { id = model.ID });
         }
-
 
         [HttpPost]
         public async Task<ActionResult> Add(ExperienceSubmission submission) {
