@@ -10,7 +10,7 @@ using Web.Controllers;
 using Web.Models;
 
 namespace Web.Areas.Students.Controllers {
-    [Authorize]
+
     public class OAuthSecuredController : BaseController {
 
         protected string AccessToken { get; private set; }
