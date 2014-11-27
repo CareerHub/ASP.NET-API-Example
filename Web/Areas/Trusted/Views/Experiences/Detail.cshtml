@@ -20,3 +20,10 @@
 </p>
 
 <a href="@Url.Action("edit", new { studentid = studentId, id = Model.ID })">Edit Experience</a>
+
+
+@if(Model.CanDelete) {
+    using (Html.BeginForm(new { action = "delete", studentid = studentId, id = Model.ID })) {
+        <button type="submit">Delete</button>
+    }
+}

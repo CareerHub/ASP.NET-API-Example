@@ -111,5 +111,16 @@ namespace Web.Areas.Trusted.Controllers {
 
             return RedirectToAction("detail", new { id = model.ID, studentid = studentid });
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Delete(string studentid, int id) {
+            var factory = await GetFactory();
+
+            var api = factory.GetExperiencesApi();
+            
+            await api.DeleteExperience(studentid, id);
+
+            return RedirectToAction("list", new { studentid = studentid });
+        }
 	}
 }
